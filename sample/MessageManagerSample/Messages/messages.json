@@ -1,0 +1,14 @@
+[
+  {
+    "Key": "AccountDoesntExists",
+    "Code": "001",
+    "Property": "Account",
+    "Value": "Account doesn't exists"
+  },
+  {
+    "Key": "AccountAmountNotTheSame",
+    "Code": "002",
+    "Property": "Account",
+    "Value": "AccountCurrency is not the same in Initiator and Receiver ({0} + {1})"
+  }
+]

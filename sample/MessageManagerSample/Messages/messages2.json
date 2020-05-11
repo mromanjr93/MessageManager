@@ -1,0 +1,8 @@
+[
+  {
+    "Key": "AccountCurrencyDifferentCompensationCurrency",
+    "Code": "003",
+    "Property": "Account",
+    "Value": "CurrencyID must be the same in AccountCurrency({0}) and CompensationCurrency({1})"
+  }
+]
