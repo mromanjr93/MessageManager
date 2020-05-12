@@ -35,8 +35,6 @@ namespace MessageManagerSample
                 c.AddFileMessage("Messages/messages.json");
                 c.AddFileMessage("Messages/messages-es-AR.json");
                 c.AddFileMessage("Messages/messages2.json");
-
-                c.SetDefaultCultureInfo(new System.Globalization.CultureInfo("es-AR"));
             });
 
             services.AddSwaggerGen(c =>
