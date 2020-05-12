@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1961BF3A-697C-4EE9-9538-C4FE0DBCC98A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{05E1A3C1-7A84-4B77-B14A-5522F0B6B3AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{DE0263D5-4CC9-471D-84CA-A27AD23C66CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Superdigital.MessageManager.Sample", "sample\Superdigital.MessageManager.Sample\Superdigital.MessageManager.Sample.csproj", "{421E0035-96BA-4CE7-A0DF-D2B6E30FC01E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Superdigital.MessageManager", "src\Superdigital.MessageManager\Superdigital.MessageManager.csproj", "{2A8BEFF5-E6A3-4E3C-A4BF-DB32CB5829CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Superdigital.MessageManager.Tests", "tests\Superdigital.MessageManager.Tests\Superdigital.MessageManager.Tests.csproj", "{CBC1C50E-DC70-4D55-ADD8-2A90C5B2FBA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{421E0035-96BA-4CE7-A0DF-D2B6E30FC01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{421E0035-96BA-4CE7-A0DF-D2B6E30FC01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{421E0035-96BA-4CE7-A0DF-D2B6E30FC01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{421E0035-96BA-4CE7-A0DF-D2B6E30FC01E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A8BEFF5-E6A3-4E3C-A4BF-DB32CB5829CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A8BEFF5-E6A3-4E3C-A4BF-DB32CB5829CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A8BEFF5-E6A3-4E3C-A4BF-DB32CB5829CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A8BEFF5-E6A3-4E3C-A4BF-DB32CB5829CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBC1C50E-DC70-4D55-ADD8-2A90C5B2FBA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC1C50E-DC70-4D55-ADD8-2A90C5B2FBA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC1C50E-DC70-4D55-ADD8-2A90C5B2FBA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC1C50E-DC70-4D55-ADD8-2A90C5B2FBA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{421E0035-96BA-4CE7-A0DF-D2B6E30FC01E} = {DE0263D5-4CC9-471D-84CA-A27AD23C66CC}
+		{2A8BEFF5-E6A3-4E3C-A4BF-DB32CB5829CC} = {1961BF3A-697C-4EE9-9538-C4FE0DBCC98A}
+		{CBC1C50E-DC70-4D55-ADD8-2A90C5B2FBA4} = {05E1A3C1-7A84-4B77-B14A-5522F0B6B3AC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF78E042-8494-443C-B0DA-70D252144A73}
+	EndGlobalSection
+EndGlobal

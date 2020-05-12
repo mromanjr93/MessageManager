@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MessageManager\MessageManager.csproj" />
+    <ProjectReference Include="..\..\src\Superdigital.MessageManager\Superdigital.MessageManager.csproj" />
   </ItemGroup>
 
 

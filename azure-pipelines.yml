@@ -1,0 +1,84 @@
+# Build Pipeline for NuGet Packages
+
+name: $(BuildDefinitionName)_$(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
+
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    exclude:
+    - README.md
+
+variables:
+  sonarQubeProjectKey: 'arq-lib-message-manager'
+  sonarQubeProjectName: 'arq-lib-message-manager'
+
+resources:
+  repositories:
+    - repository: pipelines-templates
+      type: git
+      name: global-platform/pipelines-templates
+      ref: refs/heads/master
+
+jobs:
+- job: Build
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  - template: sonarqube/prepare.yml@pipelines-templates
+    parameters:
+      sonarQubeProjectKey: '$(sonarQubeProjectKey)'
+      sonarQubeProjectName: '$(sonarQubeProjectName)'
+
+  - task: NuGetCommand@2
+    displayName: 'Authenticate with Azure DevOps NuGet'
+    inputs:
+      command: custom
+      arguments: sources update -Name "SuperdigitalHoldCo" -Username "vsts" -Password "$(System.AccessToken)" -StorePasswordInClearText -ConfigFile ./nuget.config
+      
+  - task: GitVersion@5
+    inputs:
+      runtime: 'core'
+      configFilePath: 'GitVersion.yml'
+      
+  - script: echo %Action%%BuildVersion%
+    displayName: 'Set build version'
+    env:
+      Action: '##vso[build.updatebuildnumber]'
+      BuildVersion: $(GitVersion.NuGetVersionV2)
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Dotnet Build'
+    inputs:
+      projects: '*.sln'
+
+  - template: dotnet/test.yml@pipelines-templates
+    parameters:
+      buildConfiguration: '$(buildConfiguration)'
+      testProjects: '**/Superdigital.Encryption.Abstraction.Tests/*Tests.csproj'
+      testArguments: '/p:CoverletOutput=$(Agent.TempDirectory)\ /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\"" "/p:Exclude=[xunit.*]*"'
+
+
+  - template: sonarqube/analyze.yml@pipelines-templates
+      
+  - task: DotNetCoreCLI@2
+    displayName: 'Dotnet Pack'
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/src/**/*.csproj'
+      nobuild: true
+      versioningScheme: 'byEnvVar'
+      versionEnvVar: 'GitVersion.SemVer'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - task: NuGetCommand@2
+    displayName: 'Dotnet Push'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '72f2e0cc-697d-43a3-9176-36504cdbfa58'
+      verbosityPush: 'Normal'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
