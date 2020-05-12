@@ -1,17 +1,17 @@
 {
-  "Language": "en-US",
+  "Language": "es-AR",
   "Messages": [
     {
       "Key": "AccountDoesntExists",
       "Code": "001",
       "Property": "Account",
-      "Value": "Account doesn't exists"
+      "Value": "La cuenta no existe"
     },
     {
       "Key": "AccountAmountNotTheSame",
       "Code": "002",
       "Property": "Account",
-      "Value": "AccountCurrency is not the same in Initiator and Receiver ({0} + {1})"
+      "Value": "La moneda de la cuenta no es la misma en iniciador y receptor({0} + {1})"
     }
   ]
 }

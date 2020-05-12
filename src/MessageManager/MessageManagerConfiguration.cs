@@ -9,19 +9,15 @@ namespace MessageManager
 {
     public static class MessageManagerConfiguration
     {
-        public static IServiceCollection AddMessageManager(this IServiceCollection services, params string[] messageFiles)
+        public static IServiceCollection AddMessageManager(this IServiceCollection services, Action<MessageFileConfigurator> configurator)
         {
-            List<Message> messages = new List<Message>();
+            var conf = new MessageFileConfigurator();
 
-            foreach (var messageFile in messageFiles)
-            {
-                using (FileStream fs = File.OpenRead(messageFile))
-                {
-                    messages.AddRange(JsonSerializer.DeserializeAsync<List<Message>>(fs).GetAwaiter().GetResult());
-                }
-            }
+            configurator(conf);
 
-            services.AddSingleton<IMessageManager, MessageManager>(p => new MessageManager(messages));
+            conf.Deserialize().GetAwaiter().GetResult();
+
+            services.AddSingleton<IMessageManager, MessageManager>(p => new MessageManager(conf.Messages, conf.CultureInfo));
 
             return services;
         }

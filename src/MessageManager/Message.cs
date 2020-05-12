@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Flunt.Notifications;
 
 namespace MessageManager
 {
@@ -25,6 +26,11 @@ namespace MessageManager
         {
             Value = string.Format(Value, values);
             return this;
+        }
+
+        public Notification GetNotification(bool useCode = false)
+        {
+            return new Notification(useCode ? Code : Property, Value);
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MessageManager;
+﻿using MessageManager;
+using MessageManagerSample.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,11 +9,6 @@ namespace MessageManagerSample.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMessageManager _messageManager;
 
@@ -28,17 +20,27 @@ namespace MessageManagerSample.Controllers
 
         [HttpGet]
         [Route("message-001")]
-        public Message GetMessage001()
+        public IActionResult GetMessage001()
         {
-            return _messageManager.GetMessage("AccountDoesntExists");
+            var response = new SampleResponse();
+
+            response.AddNotification(_messageManager.GetMessage("AccountDoesntExists").GetNotification());
+
+
+            return Ok(response);
         }
 
 
         [HttpGet]
         [Route("message-002")]
-        public Message GetMessage002()
+        public IActionResult GetMessage002()
         {
-            return _messageManager.GetMessage("AccountAmountNotTheSame").FormatValue("BRL", "EUR");
+            var response = new SampleResponse();
+
+            response.AddNotification(_messageManager.GetMessage("AccountAmountNotTheSame").FormatValue("BRL", "EUR").GetNotification(true));
+
+
+            return Ok(response);
         }
 
         [HttpGet]
@@ -46,6 +48,20 @@ namespace MessageManagerSample.Controllers
         public Message GetMessage003()
         {
             return _messageManager.GetMessage("AccountCurrencyDifferentCompensationCurrency").FormatValue("BRL", "USD");
+        }
+
+
+        [HttpGet]
+        [Route("all-messages")]
+        public IActionResult GetAllMessages()
+        {
+            var response = new SampleResponse();
+
+            response.AddNotification(_messageManager.GetMessage("AccountDoesntExists").GetNotification());
+            response.AddNotification(_messageManager.GetMessage("AccountAmountNotTheSame").FormatValue("BRL", "EUR").GetNotification(true));
+            response.AddNotification(_messageManager.GetMessage("AccountCurrencyDifferentCompensationCurrency").FormatValue("BRL", "USD").GetNotification());
+
+            return Ok(response);
         }
     }
 }
